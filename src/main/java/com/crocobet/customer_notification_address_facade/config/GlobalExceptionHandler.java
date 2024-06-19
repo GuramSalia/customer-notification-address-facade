@@ -18,7 +18,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Not found")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Resource not found")})
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(
             ResourceNotFoundException ex,
             WebRequest request
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CustomerNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Not found")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Customer not found")})
     public ResponseEntity<ErrorDetails> handleCustomerNotFoundException(
             CustomerNotFoundException ex,
             WebRequest request
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AddressNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Not found")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Address not found")})
     public ResponseEntity<ErrorDetails> handleAddressNotFoundException(
             AddressNotFoundException ex,
             WebRequest request
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NotificationPreferencesNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Not found")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "NotificationPreference not found")})
     public ResponseEntity<ErrorDetails> handleNotificationPreferencesNotFoundException(
             NotificationPreferencesNotFoundException ex,
             WebRequest request
@@ -82,9 +82,41 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Not found")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "User not found")})
     public ResponseEntity<ErrorDetails> handleUserNotFoundException(
             UserNotFoundException ex,
+            WebRequest request
+    ) {
+        log.error(ex.getMessage(), ex);
+        ErrorDetails errorDetails = new ErrorDetails(
+                HttpStatus.NOT_FOUND,
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+    }
+
+    @ExceptionHandler(NotificationNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Notification not found")})
+    public ResponseEntity<ErrorDetails> handleNotificationNotFoundException(
+            NotificationNotFoundException ex,
+            WebRequest request
+    ) {
+        log.error(ex.getMessage(), ex);
+        ErrorDetails errorDetails = new ErrorDetails(
+                HttpStatus.NOT_FOUND,
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+    }
+
+    @ExceptionHandler(MessageNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Message not found")})
+    public ResponseEntity<ErrorDetails> handleMessageNotFoundException(
+            MessageNotFoundException ex,
             WebRequest request
     ) {
         log.error(ex.getMessage(), ex);

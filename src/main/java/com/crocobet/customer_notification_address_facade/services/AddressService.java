@@ -27,8 +27,8 @@ public class AddressService {
         Address address = addressRepository
                 .findById(id)
                 .orElseThrow(() -> new AddressNotFoundException("Address not found"));
-        address.setType(addressDetails.getType());
-        address.setValue(addressDetails.getValue());
+        address.setAddressType(addressDetails.getAddressType());
+        address.setContactValue(addressDetails.getContactValue());
         return addressRepository.save(address);
     }
 

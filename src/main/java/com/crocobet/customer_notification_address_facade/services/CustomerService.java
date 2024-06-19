@@ -4,6 +4,8 @@ import com.crocobet.customer_notification_address_facade.exceptions.CustomerNotF
 import com.crocobet.customer_notification_address_facade.model.Customer;
 import com.crocobet.customer_notification_address_facade.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +46,38 @@ public class CustomerService {
                 .findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
         customerRepository.delete(customer);
+    }
+
+    public List<Customer> searchCustomersByName(String keyword) {
+        return customerRepository.findByUsernameContaining(keyword);
+    }
+
+    public List<Customer> searchCustomersByContactInfo(String contact) {
+        return customerRepository.findByContactInfo(contact);
+    }
+
+    public long countCustomersByOptedInEmail(boolean optedIn) {
+        // Example of reporting method
+        return customerRepository.countByNotificationPreferencesOptInEmail(optedIn);
+    }
+
+    public long countCustomersByOptedInSms(boolean optedIn) {
+        return customerRepository.countByNotificationPreferencesOptInSms(optedIn);
+    }
+
+    public long countCustomersByOptedInPromotionalMessages(boolean optedIn) {
+        return customerRepository.countByNotificationPreferencesOptInPromotionalMessages(optedIn);
+    }
+
+    public Page<Customer> findCustomersByOptedInEmail(boolean optedIn, Pageable pageable) {
+        return customerRepository.findByNotificationPreferencesOptInEmail(optedIn, pageable);
+    }
+
+    public Page<Customer> findCustomersByOptedInsms(boolean optedIn, Pageable pageable) {
+        return customerRepository.findByNotificationPreferencesOptInSms(optedIn, pageable);
+    }
+
+    public Page<Customer> findCustomersByOptedInPromotionalMessages(boolean optedIn, Pageable pageable) {
+        return customerRepository.findByNotificationPreferencesOptInPromotionalMessages(optedIn, pageable);
     }
 }

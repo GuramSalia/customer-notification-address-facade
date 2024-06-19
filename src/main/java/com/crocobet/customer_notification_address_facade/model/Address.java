@@ -20,10 +20,10 @@ public class Address {
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    private AddressType type;
+    @Enumerated(EnumType.STRING)
+    private CommunicationType addressType;
 
-    @Column(name = "ADDRESS_VALUE", nullable = false)
-    private String value;
+    @Column(name = "CONTACT_VALUE", nullable = false)
+    private String contactValue;
 }
