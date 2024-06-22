@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Dashboard</h2>
+<div class="dashboard">
+    <div class="topic">
+        <h3>User</h3>
+        <ul>
+            <li><a th:href="@{/generate-payload/user-create}">Create User</a></li>
+            <li><a th:href="@{/generate-payload/user-update}">Update User</a></li>
+            <li><a th:href="@{/generate-payload/user-delete}">Delete User</a></li>
+            <li><a th:href="@{/generate-payload/user-get-by-username}">Retrieve User By Username</a></li>
+            <li><a th:href="@{/generate-payload/user-get-by-id}">Retrieve User By ID</a></li>
+        </ul>
+    </div>
+
+    <div class="topic">
+        <h3>Preferences</h3>
+        <ul>
+            <li><a th:href="@{/generate-payload/preferences-create}">Create Preferences</a></li>
+            <li><a th:href="@{/generate-payload/preferences-update}">Update Preferences</a></li>
+            <li><a th:href="@{/generate-payload/preferences-delete}">Delete Preferences</a></li>
+            <li><a th:href="@{/generate-payload/preferences-get-by-customer}">Retrieve Preferences by Customer ID</a></li>
+        </ul>
+    </div>
+
+    <div class="topic">
+        <h3>Customer</h3>
+        <ul>
+            <li><a th:href="@{/generate-payload/customer-create}">Create Customer</a></li>
+            <li><a th:href="@{/generate-payload/customer-update}">Update Customer</a></li>
+            <li><a th:href="@{/generate-payload/customer-delete}">Delete Customer</a></li>
+            <li><a th:href="@{/customers}">Retrieve All Customers</a></li>
+
+            <li><a th:href="@{/generate-payload/customers/search}">Retrieve Customers</a></li>
+            <li><a th:href="@{/generate-payload/customers/search/contact}">Retrieve Customers by Contact</a></li>
+
+            <li><a th:href="@{/generate-payload/customers/report/opted-in-email}">Number of Customers By Email Opt-in</a></li>
+            <li><a th:href="@{/generate-payload/customers/report/opted-in-sms}">Number of Customers By SMS Opt-in</a></li>
+            <li><a th:href="@{/generate-payload/customers/report/opted-in-promotional-messages}">Number of Customers By Promotional Opt-in</a></li>
+
+            <li><a th:href="@{/generate-payload/customers/report/pagination/opted-in-email}">Retrieve Customers By Email Opt-in (Pagination)</a></li>
+            <li><a th:href="@{/generate-payload/customers/report/pagination/opted-in-sms}">Retrieve Customers By SMS Opt-in (Pagination)</a></li>
+            <li><a th:href="@{/generate-payload/customers/report/pagination/opted-in-promotional-messages}">Retrieve Customers By Promotional Opt-in (Pagination)</a></li>
+        </ul>
+    </div>
+
+    <div class="topic">
+        <h3>Address</h3>
+        <ul>
+            <li><a th:href="@{/generate-payload/address-create}">Create Address</a></li>
+            <li><a th:href="@{/generate-payload/address-update}">Update Address</a></li>
+            <li><a th:href="@{/generate-payload/address-delete}">Delete Address</a></li>
+            <li><a th:href="@{/generate-payload/address-get-for-customer}">Retrieve Addresses By Customer</a></li>
+        </ul>
+    </div>
+
+    <div class="topic">
+        <h3>Notification</h3>
+        <ul>
+            <li><a th:href="@{/generate-payload/notifications-by-address}">Retrieve Notifications by Address</a></li>
+            <li><a th:href="@{/generate-payload/notifications-by-status}">Retrieve Notifications by Status</a></li>
+            <li><a th:href="@{/generate-payload/notifications-by-status-and-customer}">Retrieve Notifications by Status and Customer</a></li>
+            <li><a th:href="@{/notifications/report}">Notification Report</a></li>
+            <li><a th:href="@{/generate-payload/notifications-by-customer}">Notification Report by Customer</a></li>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="~{footer :: footer}">...</div>
+</body>
+</html>

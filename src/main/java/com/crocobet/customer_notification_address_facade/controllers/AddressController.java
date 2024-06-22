@@ -1,6 +1,7 @@
 package com.crocobet.customer_notification_address_facade.controllers;
 
 import com.crocobet.customer_notification_address_facade.model.Address;
+import com.crocobet.customer_notification_address_facade.model.dtos.AddressDto;
 import com.crocobet.customer_notification_address_facade.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +22,13 @@ public class AddressController {
     }
 
     @PostMapping
-    public Address createAddress(@RequestBody Address address) {
+    public Address createAddress(@RequestBody AddressDto address) {
         return addressService.addAddress(address);
     }
 
     @PutMapping("/{id}")
-    public Address updateAddress(@PathVariable Long id, @RequestBody Address addressDetails) {
-        return addressService.updateAddress(id, addressDetails);
+    public Address updateAddress(@RequestBody AddressDto addressDetails) {
+        return addressService.updateAddress(addressDetails);
     }
 
     @DeleteMapping("/{id}")

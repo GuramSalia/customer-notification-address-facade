@@ -1,5 +1,6 @@
 package com.crocobet.customer_notification_address_facade.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JsonIgnore
     private Customer customer;
 
     @Column(name = "TYPE", nullable = false)
@@ -26,4 +28,14 @@ public class Address {
 
     @Column(name = "CONTACT_VALUE", nullable = false)
     private String contactValue;
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", customerId=" + customer.getId() +
+                ", addressType=" + addressType +
+                ", contactValue='" + contactValue + '\'' +
+                '}';
+    }
 }

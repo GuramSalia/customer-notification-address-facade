@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for User Creation</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for User Creation</h2>
+
+<form id="userForm" class="form">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br><br>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" required>
+        <option value="ADMIN">ADMIN</option>
+        <option value="OTHER">OTHER</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+
+        const formData = {
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+            role: document.getElementById('role').value
+        };
+
+
+        fetch('/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            alert('User created successfully');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error creating user');
+        });
+    });
+</script>
+
+</body>
+</html>

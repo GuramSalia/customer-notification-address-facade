@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Customer Search by Contact</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Customer Search by Contact</h2>
+
+<form id="customerContactSearchForm" class="form" action="/customers/search/contact/{contact}" method="get">
+    <label for="contact">Contact:</label>
+    <input type="text" id="contact" name="contact" required>
+    <br><br>
+
+    <button type="submit">Search Customers</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('customerContactSearchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const contact = document.getElementById('contact').value.trim();
+
+        if (contact) {
+            window.location.href = '/customers/search/contact/' + encodeURIComponent(contact);
+        } else {
+            alert('Please enter a contact.');
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Notifications by Status</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Notifications by Status</h2>
+
+<form id="notificationsByStatusForm" class="form">
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+        <option value="">Select Status</option>
+        <option value="DELIVERED">DELIVERED</option>
+        <option value="FAILED">FAILED</option>
+        <option value="PENDING">PENDING</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Retrieve Notifications</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('notificationsByStatusForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const status = document.getElementById('status').value.trim();
+        if (status) {
+            window.location.href = '/notifications/status/' + encodeURIComponent(status);
+        } else {
+            alert('Please select a Status.');
+        }
+    });
+</script>
+
+</body>
+</html>

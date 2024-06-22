@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Address Retrieval by Customer ID</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Address Retrieval by Customer ID</h2>
+
+<form id="addressRetrievalForm" method="get" class="form">
+    <label for="customerId">Customer ID:</label>
+    <input type="text" id="customerId" name="customerId" required>
+    <br><br>
+
+    <button type="submit">Retrieve Addresses</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('addressRetrievalForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const customerId = document.getElementById('customerId').value;
+        this.action = `/addresses/customer/${customerId}`;
+        this.submit();
+    });
+</script>
+
+</body>
+</html>

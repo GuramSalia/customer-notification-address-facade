@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Customer Report - Opted-In for SMS</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Customer Report - Opted-In for SMS</h2>
+
+<form id="optedInSmsReportForm" class="form" action="/customers/report/opted-in-sms/{optedIn}" method="get">
+    <label for="optedIn">Opted-In:</label>
+    <select id="optedIn" name="optedIn" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Generate Report</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('optedInSmsReportForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const optedIn = document.getElementById('optedIn').value;
+
+        if (optedIn) {
+            window.location.href = '/customers/report/opted-in-sms/' + optedIn;
+        } else {
+            alert('Please select whether customers are opted-in for SMS.');
+        }
+    });
+</script>
+
+</body>
+</html>

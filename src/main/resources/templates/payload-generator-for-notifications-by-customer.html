@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Notifications by Customer</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Notifications by Customer</h2>
+
+<form id="notificationsByCustomerForm" class="form">
+    <label for="customerId">Customer ID:</label>
+    <input type="text" id="customerId" name="customerId" required>
+    <br><br>
+
+    <button type="submit">Retrieve Notifications Report</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('notificationsByCustomerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const customerId = document.getElementById('customerId').value.trim();
+        if (customerId) {
+            window.location.href = '/notifications/report/customer/' + encodeURIComponent(customerId);
+        } else {
+            alert('Please enter a Customer ID.');
+        }
+    });
+</script>
+
+</body>
+</html>

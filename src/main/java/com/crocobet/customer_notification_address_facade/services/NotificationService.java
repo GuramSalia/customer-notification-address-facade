@@ -8,6 +8,7 @@ import com.crocobet.customer_notification_address_facade.repositories.Notificati
 import com.crocobet.customer_notification_address_facade.repositories.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,6 +32,7 @@ public class NotificationService {
         this.addressRepository = addressRepository;
     }
 
+    @Transactional
     public Notification sendNotification(Long messageId, String recipient, String notificationType) {
         //simulating sending notification and saving first with pending status
         Notification notification = new Notification();
@@ -44,6 +46,7 @@ public class NotificationService {
         return notificationRepository.save(notification);
     }
 
+    @Transactional
     public void updateNotificationStatus(Long notificationId, NotificationStatus newStatus) {
         Notification notification = notificationRepository
                 .findById(notificationId)
@@ -53,14 +56,17 @@ public class NotificationService {
         notificationRepository.save(notification);
     }
 
+    @Transactional(readOnly = true)
     public List<Notification> getAllNotificationsForRecipient(String recipient) {
         return notificationRepository.findByRecipient(recipient);
     }
 
+    @Transactional(readOnly = true)
     public List<Notification> getNotificationsByStatus(NotificationStatus status) {
         return notificationRepository.findByStatus(status);
     }
 
+    @Transactional(readOnly = true)
     public Map<NotificationStatus, NotificationSuccessRate> getNotificationDeliverySuccessRates() {
         long total = notificationRepository.count();
         long delivered = notificationRepository.countByStatus(NotificationStatus.DELIVERED);
@@ -78,6 +84,7 @@ public class NotificationService {
         );
     }
 
+    @Transactional(readOnly = true)
     public List<Notification> getNotificationsByStatusForCustomer(Long customerId, NotificationStatus status) {
         List<String> contactValues = addressRepository
                 .findByCustomerId(customerId)
@@ -87,6 +94,7 @@ public class NotificationService {
         return notificationRepository.findByRecipientInAndStatus(contactValues, status);
     }
 
+    @Transactional(readOnly = true)
     public Map<NotificationStatus, NotificationSuccessRate> getNotificationDeliverySuccessRatesForCustomer(Long customerId) {
         List<String> contactValues = addressRepository
                 .findByCustomerId(customerId)

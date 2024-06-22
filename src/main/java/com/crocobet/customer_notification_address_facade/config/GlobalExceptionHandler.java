@@ -128,6 +128,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
     }
 
+    @ExceptionHandler(UserNotAuthenticatedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ApiResponses(value = {@ApiResponse(responseCode = "401", description = "Unauthorized")})
+    public ResponseEntity<ErrorDetails> handleUserNotAuthenticatedException(
+            UserNotAuthenticatedException ex,
+            WebRequest request
+    ) {
+        log.error(ex.getMessage(), ex);
+        ErrorDetails errorDetails = new ErrorDetails(
+                HttpStatus.UNAUTHORIZED,
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorDetails);
+    }
+
     @ExceptionHandler(Exception.class)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")

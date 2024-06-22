@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Preferences Creation</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Preferences Creation</h2>
+
+<form id="preferencesCreationForm" class="form">
+    <label for="customerId">Customer ID:</label>
+    <input type="text" id="customerId" name="customerId" required>
+    <br><br>
+
+    <label for="optInSms">Opt In SMS:</label>
+    <select id="optInSms" name="optInSms" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+
+    <label for="optInEmail">Opt In Email:</label>
+    <select id="optInEmail" name="optInEmail" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+
+    <label for="optInPromotionalMessages">Opt In Promotional Messages:</label>
+    <select id="optInPromotionalMessages" name="optInPromotionalMessages" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('preferencesCreationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const customerId = document.getElementById('customerId').value.trim();
+        if (!customerId) {
+            alert('Please enter a Customer ID.');
+            return;
+        }
+
+        const preferencesData = {
+            customerId: customerId,
+            optInSms: document.getElementById('optInSms').value === 'true',
+            optInEmail: document.getElementById('optInEmail').value === 'true',
+            optInPromotionalMessages: document.getElementById('optInPromotionalMessages').value === 'true'
+        };
+
+        fetch('/preferences', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(preferencesData)
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert('Failed to create preferences.');
+            }
+        }).then(data => {
+            if (data) {
+                console.log('Preferences created:', data);
+                alert('Preferences created successfully!');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while creating preferences.');
+        });
+    });
+</script>
+
+</body>
+</html>

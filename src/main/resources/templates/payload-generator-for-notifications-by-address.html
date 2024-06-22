@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Notifications by Address</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Notifications by Address</h2>
+
+<form id="notificationsByAddressForm" class="form">
+    <label for="recipient">Recipient Address:</label>
+    <input type="text" id="recipient" name="recipient" required>
+    <br><br>
+
+    <button type="submit">Retrieve Notifications</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('notificationsByAddressForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const recipient = document.getElementById('recipient').value.trim();
+        if (recipient) {
+            window.location.href = '/notifications/recipient/' + encodeURIComponent(recipient);
+        } else {
+            alert('Please enter a Recipient Address.');
+        }
+    });
+</script>
+
+</body>
+</html>

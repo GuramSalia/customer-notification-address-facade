@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Address Creation</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Address Creation</h2>
+
+<form id="addressForm" class="form">
+    <label for="customerId">Customer ID:</label>
+    <input type="text" id="customerId" name="customerId" required>
+    <br><br>
+
+    <label for="addressType">Address Type:</label>
+    <select id="addressType" name="addressType" required>
+        <option value="EMAIL">Email</option>
+        <option value="SMS">SMS</option>
+        <option value="POSTAL">Postal</option>
+    </select>
+    <br><br>
+
+    <label for="contactValue">Contact Value:</label>
+    <input type="text" id="contactValue" name="contactValue" required>
+    <br><br>
+
+    <button type="submit">Create Address</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('addressForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = {
+            id: document.getElementById('customerId').value,
+            addressType: document.getElementById('addressType').value,
+            contactValue: document.getElementById('contactValue').value
+        };
+
+        fetch('/addresses', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            alert('Address created successfully');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error creating address');
+        });
+    });
+</script>
+
+</body>
+</html>

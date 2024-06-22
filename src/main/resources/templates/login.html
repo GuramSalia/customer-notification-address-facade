@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+
+<section class="login-section">
+    <div class="login-div">
+        <div class="login-title-main">
+            <h3 class="title-style">Log In</h3>
+        </div>
+        <div class="login-message-div">
+            <p class="login-error-message" th:if="${isMessage}" th:text="${errorMessage}"></p>
+        </div>
+        <div class="login-block">
+            <div class="login-center">
+                <form th:action="@{/login}" method="post" class="signin-form">
+                    <div class="login-center">
+                        <input type="text" name="username" id="username" placeholder="Username" class="login-input" required/>
+                        <input type="password" name="password" id="password" placeholder="Password" class="login-input" required/>
+                    </div>
+                    <div class="login-center text-start">
+                        <button class="btn login-btn">Log In</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>
+
+

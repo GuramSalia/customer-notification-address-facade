@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Payload for Notifications by Status and Customer</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Notifications by Status and Customer</h2>
+
+<form id="notificationsByStatusAndCustomerForm" class="form">
+  <label for="customerId">Customer ID:</label>
+  <input type="text" id="customerId" name="customerId" required>
+  <br><br>
+
+  <label for="status">Status:</label>
+  <select id="status" name="status" required>
+    <option value="DELIVERED">DELIVERED</option>
+    <option value="FAILED">FAILED</option>
+    <option value="PENDING">PENDING</option>
+  </select>
+  <br><br>
+
+  <button type="submit">Retrieve Notifications</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+  document.getElementById('notificationsByStatusAndCustomerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const formData = new FormData(form);
+      const customerId = formData.get('customerId');
+      const status = formData.get('status');
+
+      if (customerId && status) {
+          window.location.href = '/notifications/status/customer/' + encodeURIComponent(customerId) + '/' + encodeURIComponent(status);
+      } else {
+          alert('Please enter Customer ID and select Status.');
+      }
+  });
+</script>
+
+</body>
+</html>

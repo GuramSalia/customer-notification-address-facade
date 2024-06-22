@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for User Retrieval by Username</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for User Retrieval by Username</h2>
+
+<form id="userRetrieveForm" class="form">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br><br>
+
+    <button type="submit">Retrieve User</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('userRetrieveForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        if (username) {
+            window.location.href = '/users/' + username;
+        } else {
+            alert('Please enter a username.');
+        }
+    });
+</script>
+
+</body>
+</html>

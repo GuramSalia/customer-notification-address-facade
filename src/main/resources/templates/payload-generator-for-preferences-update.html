@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Preferences Update</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Preferences Update</h2>
+
+<form id="preferencesUpdateForm" class="form">
+    <label for="id">Preferences ID:</label>
+    <input type="text" id="id" name="id" required>
+    <br><br>
+
+    <label for="customerId">Customer ID:</label>
+    <input type="text" id="customerId" name="customerId" required>
+    <br><br>
+
+    <label for="optInSms">Opt In SMS:</label>
+    <select id="optInSms" name="optInSms" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+
+    <label for="optInEmail">Opt In Email:</label>
+    <select id="optInEmail" name="optInEmail" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+
+    <label for="optInPromotionalMessages">Opt In Promotional Messages:</label>
+    <select id="optInPromotionalMessages" name="optInPromotionalMessages" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Update</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('preferencesUpdateForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const id = document.getElementById('id').value;
+
+        fetch(`/preferences/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(Object.fromEntries(formData))
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to update preferences.');
+            }
+        }).then(data => {
+            console.log('Updated preferences:', data);
+             alert('Preferences updated successfully!');
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating preferences.');
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -4,8 +4,21 @@ INSERT INTO APP_USERS (USERNAME, PASSWORD, ROLE) VALUES
 ('sam456', '$2a$10$NdnSNmRwgnI1QGtb9XBXzein0VHLWNn.SN8eCvflTYmitBNt38IJC', 'ADMIN');
 
 INSERT INTO CUSTOMERS (USERNAME) VALUES
-('customer1'),
-('customer2');
+('w-customer1'),
+('z-customer2'),
+('v-customer3'),
+('d-customer4'),
+('e-customer5'),
+('f-customer6'),
+('g-customer7'),
+('h-customer8'),
+('i-customer9'),
+('j-customer10'),
+('k-customer11'),
+('l-customer12'),
+('m-customer13'),
+('n-customer14'),
+('o-customer15');
 
 INSERT INTO ADDRESSES (CUSTOMER_ID, TYPE, CONTACT_VALUE) VALUES
 (1, 'EMAIL', 'customer1@example.com'),
@@ -15,7 +28,20 @@ INSERT INTO ADDRESSES (CUSTOMER_ID, TYPE, CONTACT_VALUE) VALUES
 
 INSERT INTO NOTIFICATION_PREFERENCES (CUSTOMER_ID, OPT_IN_SMS, OPT_IN_EMAIL, OPT_IN_PROMOTIONAL_MESSAGES) VALUES
 (1, true, true, false),
-(2, false, true, true);
+(2, false, true, true),
+(3, true, false, false),
+(4, true, true, false),
+(5, true, true, false),
+(6, true, true, false),
+(7, true, true, false),
+(8, true, true, false),
+(9, true, true, false),
+(10, true, true, false),
+(11, true, true, false),
+(12, true, true, false),
+(13, true, true, false),
+(14, true, true, false),
+(15, true, true, false);
 
 INSERT INTO NOTIFICATION_MESSAGES (MESSAGE) VALUES
 ('email message 1'),

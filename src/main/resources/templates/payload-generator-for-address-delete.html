@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for Address Deletion</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for Address Deletion</h2>
+
+<form id="addressDeleteForm" class="form">
+    <label for="addressId">Address ID:</label>
+    <input type="text" id="addressId" name="addressId" required>
+    <br><br>
+
+    <button type="submit">Delete Address</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('addressDeleteForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const addressId = document.getElementById('addressId').value;
+
+        fetch(`/addresses/${addressId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            alert('Address deleted successfully');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error deleting address');
+        });
+    });
+</script>
+
+</body>
+</html>

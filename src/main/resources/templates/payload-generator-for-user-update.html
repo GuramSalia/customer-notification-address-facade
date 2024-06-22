@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payload for User Update</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+
+<h2>Generate Payload for User Update</h2>
+
+<form id="updateUserForm" class="form">
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" name="userId" th:value="${userId}" required>
+    <br><br>
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" th:value="${username}" required>
+    <br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" th:value="${password}" required>
+    <br><br>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" required>
+        <option value="ADMIN" th:selected="${role == 'ADMIN'}">ADMIN</option>
+        <option value="OTHER" th:selected="${role == 'OTHER'}">OTHER</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Update</button>
+</form>
+
+<div th:replace="~{footer :: footer}">...</div>
+
+<script>
+    document.getElementById('updateUserForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch('/users/' + formData.get('userId'), {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: formData.get('username'),
+                password: formData.get('password'),
+                role: formData.get('role')
+            })
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to update user.');
+            }
+        }).then(data => {
+            console.log('Updated user:', data);
+            alert('User updated successfully');
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating user.');
+        });
+    });
+</script>
+
+</body>
+</html>

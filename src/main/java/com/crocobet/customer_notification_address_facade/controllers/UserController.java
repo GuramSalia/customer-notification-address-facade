@@ -14,13 +14,13 @@ public class UserController {
     public UserController(UserService userService) {this.userService = userService;}
 
     @GetMapping("/{username}")
-    public User getAllAddressesForCustomer(@PathVariable String username) {
+    public User getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
     }
 
-    @GetMapping("/customer/{customerId}")
-    public User getAllAddressesForCustomer(@PathVariable Long id) {
-        return userService.getUserById(id);
+    @GetMapping("/user/{userId}")
+    public User getUserById(@PathVariable long userId) {
+        return userService.getUserById(userId);
     }
 
     @PostMapping
@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@RequestBody User userDetails) {
-        return userService.updateUser(userDetails);
+    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        return userService.updateUser(id, userDetails);
     }
 
     @DeleteMapping("/{id}")

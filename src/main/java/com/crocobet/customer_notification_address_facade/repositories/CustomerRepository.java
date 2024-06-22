@@ -15,7 +15,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c JOIN c.contactInfo a WHERE a.contactValue LIKE %:contact%")
     List<Customer> findByContactInfo(@Param("contact") String contact);
 
-    // Sorting and filtering part used in this method as an example, we can use it similarly somewhere else
     @Query("SELECT c FROM Customer c JOIN c.notificationPreferences np WHERE np.optInEmail = :optInEmail")
     Page<Customer> findByNotificationPreferencesOptInEmail(boolean optInEmail, Pageable pageable);
 
