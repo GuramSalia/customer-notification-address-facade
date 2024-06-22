@@ -9,7 +9,7 @@ public class CustomerNotificationAddressFacadeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerNotificationAddressFacadeApplication.class, args);
 
-		//TODO: add code to test functionality, add thymeleaf and add security.
+
 	}
 
 }

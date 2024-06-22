@@ -2,15 +2,15 @@ package com.crocobet.customer_notification_address_facade.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "NOTIFICATION_PREFERENCES")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class NotificationPreferences {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
