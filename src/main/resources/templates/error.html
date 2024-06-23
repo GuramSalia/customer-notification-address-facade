@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+
+<div th:replace="~{header :: header}">...</div>
+
+
+<div class="home-content">
+    <H1>Ups..</H1>
+    <h3 th:text="${errorMessage}">Error message</h3>
+</div>
+
+
+
+
+
+<div th:replace="~{footer :: footer}">...</div>
+
+
+</body>
+</html>
